@@ -6,6 +6,7 @@ from config import db
 from models.post import Post
 from models.user import User
 import sys
+
 reload(sys)
 sys.setdefaultencoding("utf-8")
 app = Flask(__name__)
@@ -42,6 +43,7 @@ def login():
         else:
             return render_template('info.html', message=u'用户不存在', redirect='/login')
 
+
 @app.route('/logout/', methods=['GET'])
 def logout():
     session.pop('username', None)
@@ -51,12 +53,12 @@ def logout():
 @app.route('/publish/', methods=['GET', 'POST'])
 def publish():
     if request.method == 'GET':
-        if not session['username']:
+        if not session.has_key('username'):
             return render_template('info.html', message=u'尚未登录', redirect='/login')
         return render_template('publish.html')
     elif request.method == 'POST':
-        title = request.form['title']
-        content = request.form['content']
+        title = request.form['title'].encode('utf-8', 'ignore')
+        content = request.form['content'].encode('utf-8', 'ignore')
         username = session['username']
         post = Post(title, content, username)
         db.add(post)
@@ -66,12 +68,16 @@ def publish():
 
 @app.route('/posts/', methods=['GET'])
 def posts():
+    if not session.has_key('username'):
+        return render_template('info.html', message=u'尚未登录', redirect='/login')
     posts = db.query(Post).all()
     return render_template('posts.html', posts=posts)
 
 
 @app.route('/post/<int:id>', methods=['GET'])
 def post(id):
+    if not session.has_key('username'):
+        return render_template('info.html', message=u'尚未登录', redirect='/login')
     post = db.query(Post).filter_by(id=id).first()
     if post:
         return render_template('show.html', post=post)
