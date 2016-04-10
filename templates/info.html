@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>提示信息</title>
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<body>
+<div class="alert alert-info" role="alert">{{ message }}</div>
+</body>
+<script>
+    setTimeout(function () {
+        window.location = '{{ redirect }}'
+    }, 1000);
+</script>
+</html>

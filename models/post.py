@@ -14,10 +14,12 @@ class Post(Base):
     id = sa.Column(sa.Integer, primary_key = True, autoincrement = True)
     title = sa.Column(sa.String(64))
     content = sa.Column(sa.Text)
+    username = sa.Column(sa.String)
 
-    def __init__(self, title=title, content=content):
+    def __init__(self, title=title, content=content, username=username):
         self.title = title
         self.content = content
+        self.username = username
 
 
     def __repr__(self):
