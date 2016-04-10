@@ -21,6 +21,5 @@ class Post(Base):
         self.content = content
         self.username = username
 
-
     def __repr__(self):
         return '<Post %s> [Content %s]' % (self.title, self.content)
