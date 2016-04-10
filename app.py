@@ -80,7 +80,7 @@ def post(id):
         return render_template('info.html', message=u'尚未登录', redirect='/login')
     post = db.query(Post).filter_by(id=id).first()
     if post:
-        return render_template('show.html', post=post)
+        return render_template('post.html', post=post)
     else:
         return render_template('info.html', message=u'公告不存在', redirect='/posts')
 
