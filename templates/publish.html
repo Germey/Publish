@@ -1,28 +1,4 @@
 <!DOCTYPE html>
-<body>
-<head>
-    <title>发布公告页面</title>
-    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
-
-</head>
-<body>
-<form method="post" action="/publish/">
-    <h4>发布公告</h4>
-
-    <div>
-        <input name="title" type="text" placeholder="公告标题">
-    </div>
-    <div>
-        <input name="content" type="password" placeholder="公告内容">
-    </div>
-    <div>
-        <input type="submit" value="发布">
-    </div>
-</form>
-</body>
-</body>
-
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -34,26 +10,32 @@
 <div class="container">
     <div class="row">
         <div class="col-md-9">
-            <form method="post" action="/register/">
-            <h4 class="text-center">发布公告</h4>
-            <div class="form-group">
-                <label for="title">公告标题</label>
-                <input type="text" class="form-control" name="title" id="title" placeholder="公告标题" required="required">
-            </div>
-            <div class="form-group">
-                <label for="content">公告内容</label>
-                <textarea type="text" class="form-control" name="content" id="content" placeholder="公告内容" required="required"></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary col-xs-12">注册</button>
-            <a href="/login">已经有账号?去登录</a>
-        </form>
+            <form method="post" action="/publish/">
+                <h4 class="text-center">发布公告</h4>
+
+                <div class="form-group">
+                    <label for="title">公告标题</label>
+                    <input type="text" class="form-control" name="title" id="title" placeholder="公告标题"
+                           required="required">
+                </div>
+                <div class="form-group">
+                    <label for="content">公告内容</label>
+                    <textarea class="form-control" name="content" id="content" placeholder="公告内容"
+                              required="required"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary col-xs-12">发布</button>
+            </form>
         </div>
         <div class="col-md-3">
             <h3>当前用户</h3>
+
             <p>{{ session['username']}}</p>
+
             <p><a href="/logout">注销账号</a></p>
-            <h3>发布公告</h3>
-            <p><a href="/publish">发布公告</a></p>
+
+            <h3>所有公告</h3>
+
+            <p><a href="/posts">所有公告</a></p>
         </div>
     </div>
 </div>

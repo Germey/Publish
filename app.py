@@ -5,7 +5,11 @@ from flask import render_template
 from config import db
 from models.post import Post
 from models.user import User
+import sys
+import hashlib
 
+reload(sys)
+sys.setdefaultencoding("utf-8")
 app = Flask(__name__)
 app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
 
@@ -52,12 +56,13 @@ def publish():
             return render_template('info.html', message=u'尚未登录', redirect='/login')
         return render_template('publish.html')
     elif request.method == 'POST':
-        title = request.form['title']
-        content = request.form['content']
+        title = request.form['title'].encode('utf-8', 'ignore')
+        content = request.form['content'].encode('utf-8', 'ignore')
         username = session['username']
         post = Post(title, content, username)
         db.add(post)
         db.commit()
+        return render_template('info.html', message=u'发布成功', redirect='/posts')
 
 
 @app.route('/posts/', methods=['GET'])
