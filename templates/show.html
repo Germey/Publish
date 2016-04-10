@@ -7,6 +7,34 @@
 
 </head>
 <body>
-{{ post.title }}
+<div class="container">
+    <div class="row">
+        <div class="col-md-9">
+            <h3>公告详情</h3>
+            <div class="panel">
+                <div class="panel-heading">
+                    <h3>{{ post.title }}</h3>
+                </div>
+                <div class="panel-body">
+                    <p>{{ post.content }}</p>
+
+                    <p>发布者: {{ post.username }}</p>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-3">
+            <h3>当前用户</h3>
+            <p>{{ session['username']}}</p>
+            <p><a href="/logout">注销账号</a></p>
+            <h3>发布公告</h3>
+            <p><a href="/publish">发布公告</a></p>
+            <h3>所有公告</h3>
+            <p><a href="/posts">所有公告</a></p>
+        </div>
+    </div>
+</div>
+
+
 </body>
 </html>

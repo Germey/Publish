@@ -6,8 +6,6 @@ from config import db
 from models.post import Post
 from models.user import User
 import sys
-import hashlib
-
 reload(sys)
 sys.setdefaultencoding("utf-8")
 app = Flask(__name__)
@@ -23,7 +21,8 @@ def register():
         password = request.form['password']
         user = User(username, password)
         db.add(user)
-        return render_template('info.html')
+        db.commit()
+        return render_template('info.html', message=u'注册成功', redirect='/login')
 
 
 @app.route('/login/', methods=['GET', 'POST'])
@@ -56,8 +55,8 @@ def publish():
             return render_template('info.html', message=u'尚未登录', redirect='/login')
         return render_template('publish.html')
     elif request.method == 'POST':
-        title = request.form['title'].encode('utf-8', 'ignore')
-        content = request.form['content'].encode('utf-8', 'ignore')
+        title = request.form['title']
+        content = request.form['content']
         username = session['username']
         post = Post(title, content, username)
         db.add(post)
@@ -71,8 +70,8 @@ def posts():
     return render_template('posts.html', posts=posts)
 
 
-@app.route('/show/<int:id>', methods=['GET'])
-def show(id):
+@app.route('/post/<int:id>', methods=['GET'])
+def post(id):
     post = db.query(Post).filter_by(id=id).first()
     if post:
         return render_template('show.html', post=post)
